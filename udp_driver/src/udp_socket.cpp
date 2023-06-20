@@ -114,9 +114,8 @@ void UdpSocket::asyncReceive(Functor func)
 
 void UdpSocket::asyncSendHandler(
   const asio::error_code & error,
-  std::size_t bytes_transferred)
+  [[maybe_unused]] std::size_t bytes_transferred)
 {
-  (void)bytes_transferred;
   if (error) {
     RCLCPP_ERROR_STREAM(rclcpp::get_logger("UdpSocket::asyncSendHandler"), error.message());
   }
@@ -124,9 +123,8 @@ void UdpSocket::asyncSendHandler(
 
 void UdpSocket::asyncReceiveHandler(
   const asio::error_code & error,
-  std::size_t bytes_transferred)
+  [[maybe_unused]] std::size_t bytes_transferred)
 {
-  (void)bytes_transferred;
   if (error) {
     RCLCPP_ERROR_STREAM(rclcpp::get_logger("UdpSocket::asyncReceiveHandler"), error.message());
     return;

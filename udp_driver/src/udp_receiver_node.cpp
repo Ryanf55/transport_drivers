@@ -51,10 +51,8 @@ UdpReceiverNode::~UdpReceiverNode()
   }
 }
 
-LNI::CallbackReturn UdpReceiverNode::on_configure(const lc::State & state)
+LNI::CallbackReturn UdpReceiverNode::on_configure([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
-
   m_publisher = this->create_publisher<udp_msgs::msg::UdpPacket>(
     "udp_read", rclcpp::QoS(100));
 
@@ -76,34 +74,30 @@ LNI::CallbackReturn UdpReceiverNode::on_configure(const lc::State & state)
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn UdpReceiverNode::on_activate(const lc::State & state)
+LNI::CallbackReturn UdpReceiverNode::on_activate([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   m_publisher->on_activate();
   RCLCPP_DEBUG(get_logger(), "UDP receiver activated.");
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn UdpReceiverNode::on_deactivate(const lc::State & state)
+LNI::CallbackReturn UdpReceiverNode::on_deactivate([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   m_publisher->on_deactivate();
   RCLCPP_DEBUG(get_logger(), "UDP receiver deactivated.");
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn UdpReceiverNode::on_cleanup(const lc::State & state)
+LNI::CallbackReturn UdpReceiverNode::on_cleanup([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   m_udp_driver->receiver()->close();
   m_publisher.reset();
   RCLCPP_DEBUG(get_logger(), "UDP receiver cleaned up.");
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn UdpReceiverNode::on_shutdown(const lc::State & state)
+LNI::CallbackReturn UdpReceiverNode::on_shutdown([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   RCLCPP_DEBUG(get_logger(), "UDP receiver shutting down.");
   return LNI::CallbackReturn::SUCCESS;
 }

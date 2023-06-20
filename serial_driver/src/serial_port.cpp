@@ -86,9 +86,8 @@ bool SerialPort::send_break()
 
 void SerialPort::async_send_handler(
   const asio::error_code & error,
-  size_t bytes_transferred)
+  [[maybe_unused]] size_t bytes_transferred)
 {
-  (void)bytes_transferred;
   if (error) {
     RCLCPP_ERROR_STREAM(rclcpp::get_logger("SerialPort::async_send_handler"), error.message());
     return;

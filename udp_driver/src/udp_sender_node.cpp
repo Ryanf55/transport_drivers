@@ -53,10 +53,8 @@ UdpSenderNode::~UdpSenderNode()
   }
 }
 
-LNI::CallbackReturn UdpSenderNode::on_configure(const lc::State & state)
+LNI::CallbackReturn UdpSenderNode::on_configure([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
-
   try {
     m_udp_driver->init_sender(m_ip, m_port);
     if (!m_udp_driver->sender()->isOpen()) {
@@ -80,16 +78,14 @@ LNI::CallbackReturn UdpSenderNode::on_configure(const lc::State & state)
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn UdpSenderNode::on_activate(const lc::State & state)
+LNI::CallbackReturn UdpSenderNode::on_activate([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   RCLCPP_DEBUG(get_logger(), "UDP sender activated.");
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn UdpSenderNode::on_deactivate(const lc::State & state)
+LNI::CallbackReturn UdpSenderNode::on_deactivate([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   RCLCPP_DEBUG(get_logger(), "UDP sender deactivated.");
   return LNI::CallbackReturn::SUCCESS;
 }

@@ -51,10 +51,8 @@ SerialBridgeNode::~SerialBridgeNode()
   }
 }
 
-LNI::CallbackReturn SerialBridgeNode::on_configure(const lc::State & state)
+LNI::CallbackReturn SerialBridgeNode::on_configure([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
-
   // Create Publisher
   m_publisher = this->create_publisher<UInt8MultiArray>(
     "serial_read", rclcpp::QoS{100});
@@ -87,25 +85,22 @@ LNI::CallbackReturn SerialBridgeNode::on_configure(const lc::State & state)
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn SerialBridgeNode::on_activate(const lc::State & state)
+LNI::CallbackReturn SerialBridgeNode::on_activate([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   m_publisher->on_activate();
   RCLCPP_DEBUG(get_logger(), "Serial bridge activated.");
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn SerialBridgeNode::on_deactivate(const lc::State & state)
+LNI::CallbackReturn SerialBridgeNode::on_deactivate([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   m_publisher->on_deactivate();
   RCLCPP_DEBUG(get_logger(), "Serial bridge deactivated.");
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn SerialBridgeNode::on_cleanup(const lc::State & state)
+LNI::CallbackReturn SerialBridgeNode::on_cleanup([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   m_serial_driver->port()->close();
   m_publisher.reset();
   m_subscriber.reset();
@@ -113,9 +108,8 @@ LNI::CallbackReturn SerialBridgeNode::on_cleanup(const lc::State & state)
   return LNI::CallbackReturn::SUCCESS;
 }
 
-LNI::CallbackReturn SerialBridgeNode::on_shutdown(const lc::State & state)
+LNI::CallbackReturn SerialBridgeNode::on_shutdown([[maybe_unused]] const lc::State & state)
 {
-  (void)state;
   RCLCPP_DEBUG(get_logger(), "Serial bridge shutting down.");
   return LNI::CallbackReturn::SUCCESS;
 }
